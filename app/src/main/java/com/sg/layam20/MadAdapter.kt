@@ -1,40 +1,48 @@
 package com.sg.layam20
 
+import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.core.content.ContextCompat
+import androidx.core.widget.ImageViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_mad.view.*
 
-class MadAdapter (val items:ArrayList<Mad>,val clickListener: OnMadItemClickListener): RecyclerView.Adapter<MadAdapter.MadViewHolder>(){
-
+class MadAdapter( val items: ArrayList<Mad>, val clickListener: OnMadItemClickListener) : RecyclerView.Adapter<MadAdapter.MadViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MadViewHolder {
-        val view=LayoutInflater.from(parent.context).inflate(R.layout.item_mad,parent,false)
-         return MadViewHolder(view)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_mad, parent, false)
+        return MadViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: MadViewHolder, position: Int) {
-        holder.initialize(items[position],clickListener)
+        holder.initialize( items[position], clickListener)
     }
 
-    override fun getItemCount()=items.size
+    override fun getItemCount() = items.size
 
-    class MadViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
-        var madName=itemView.madName
-        var madLogo=itemView.madImage
-        fun initialize(item:Mad,action:OnMadItemClickListener){
-            madName.text=item.name
+    class MadViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var madName = itemView.madName
+        var madLogo = itemView.madImage
+
+
+        fun initialize( item: Mad, action: OnMadItemClickListener) {
+            madName.text = item.name
             madLogo.setImageResource(item.logo)
             itemView.setOnClickListener {
-                action.onItemClick(item,adapterPosition)
+                action.onItemClick(item, adapterPosition)
             }
         }
     }
 }
 
 interface OnMadItemClickListener {
-    fun onItemClick(item:Mad,position:Int)
+    fun onItemClick(item: Mad, position: Int)
 
 }
